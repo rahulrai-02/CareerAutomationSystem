@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | AutoPro AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Exact same styles as Login for consistency */
+        :root {
+            --bright-purple: #6c5ce7;
+            --neon-green: #55efc4;
+            --white: #ffffff;
+            --dark-navy: #2d3436;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #0984e3 0%, #55efc4 100%); /* Slightly different gradient for Signup */
+            font-family: 'Outfit', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .signup-container {
+            background: var(--white);
+            width: 90%;
+            max-width: 450px;
+            padding: 40px 50px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .logo-small { font-weight: 900; color: #0984e3; font-size: 1.5rem; margin-bottom: 10px; }
+        
+        h1 { font-weight: 900; font-size: 2rem; margin-bottom: 5px; color: var(--dark-navy); }
+        p { color: #636e72; margin-bottom: 25px; font-weight: 500; }
+
+        input {
+            width: 100%;
+            padding: 12px 25px;
+            margin-bottom: 12px;
+            border-radius: 20px;
+            border: 3px solid #f0f3ff;
+            font-family: inherit;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: #0984e3;
+            color: white;
+            padding: 15px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 6px 0px #0652dd;
+            transition: 0.2s;
+        }
+
+        .btn-action:hover { transform: translateY(-3px); box-shadow: 0 9px 0px #0652dd; }
+
+        .footer-links { margin-top: 20px; font-weight: 600; font-size: 0.9rem; }
+        .footer-links a { color: #0984e3; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo-small">AUTOPRO AI.</div>
+        <h1>Join the Squad</h1>
+        <p>Unlock your AI career weapon.</p>
+        
+        <form action="{{ url_for('signup') }}" method="POST">
+            <input type="text" name="username" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="College Email" required>
+            <input type="password" name="password" placeholder="Create Password" required>
+            <button type="submit" class="btn-action">GET ACCESS! 🔥</button>
+        </form>
+
+        <div class="footer-links">
+            Already have access? <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPro AI | Land The Dream</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bright-purple: #6c5ce7;
+            --neon-green: #55efc4;
+            --sky-blue: #0984e3;
+            --dark-navy: #2d3436;
+            --white: #ffffff;
+            --mnc-gold: #f1c40f; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #f0f3ff;
+            font-family: 'Outfit', sans-serif;
+            color: var(--dark-navy);
+            height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Compact Nav --- */
+        .top-nav {
+            padding: 1vh 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            height: 8vh;
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--bright-purple); }
+        .logout-pill {
+            background: #ff7675;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, #6c5ce7 0%, #0984e3 100%);
+            height: 35vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            border-bottom-left-radius: 60px;
+            border-bottom-right-radius: 60px;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 6vh, 3.5rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1vh;
+            text-transform: uppercase;
+        }
+        .hero h1 span { color: var(--neon-green); }
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 2vh;
+        }
+        .launch-btn {
+            background: var(--white);
+            color: var(--bright-purple);
+            padding: 1vh 30px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 6px 0px #cfd9ff;
+        }
+
+        /* --- Products Section --- */
+        .products-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 3vh 3%;
+            overflow-y: auto;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 2vh;
+            text-transform: uppercase;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 15px;
+            width: 100%;
+            max-width: 1300px;
+            margin-bottom: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2vh 10px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 3px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1vh;
+        }
+
+        .product-card h3 {
+            font-size: 0.85rem;
+            font-weight: 900;
+            margin-bottom: 0.5vh;
+            text-transform: uppercase;
+        }
+        .product-card p {
+            font-size: 0.7rem;
+            color: #636e72;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        /* --- Color Palettes --- */
+        .card-resume .icon-wrapper { background: #ffeaa7; color: #fdcb6e; }
+        .card-jd .icon-wrapper { background: #81ecec; color: #00cec9; }
+        .card-mail .icon-wrapper { background: #fab1a0; color: #ff7675; }
+        .card-tracker .icon-wrapper { background: #a29bfe; color: #6c5ce7; }
+        .card-mnc .icon-wrapper { background: #dff9fb; color: #38bdf8; }
+        
+        .card-vacancies .icon-wrapper { background: #55efc4; color: #00b894; }
+        .card-intern .icon-wrapper { background: #74b9ff; color: #0984e3; }
+        .card-naukri .icon-wrapper { background: #fab1a0; color: #d63031; }
+        .card-aicte .icon-wrapper { background: #fdcb6e; color: #e67e22; }
+        .card-indeed .icon-wrapper { background: #dfe6e9; color: #2d3436; }
+
+        @media (max-width: 1024px) {
+            body { overflow-y: auto; height: auto; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero { height: auto; padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="logo">Career Automation System.</div>
+        <div class="auth-buttons" style="display: flex; align-items: center; gap: 15px;">
+            <a href="{{ url_for('search_jobs') }}" style="text-decoration: none; color: var(--bright-purple); font-weight: 700; font-size: 0.8rem;">Live Jobs</a>
+            <a href="{{ url_for('logout') }}" class="logout-pill">Logout</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Ditch the Paperwork.<br><span>Land the Dream.</span></h1>
+        <p>The AI secret weapon for college students.</p>
+        <a href="{{ url_for('logout') }}" class="launch-btn">GET STARTED 🚀</a>
+    </header>
+
+    <section class="products-section" id="tools">
+        <h2 class="section-title">AI Content Tools</h2>
+        <div class="product-grid">
+            <a href="{{ url_for('input_form') }}" class="product-card card-resume">
+                <div class="icon-wrapper">🚀</div>
+                <h3>Resume Rocket</h3>
+                <p>AI resumes that beat ATS filters.</p>
+            </a>
+            
+            <a href="{{ url_for('analyzer_input_form') }}" class="product-card card-jd">
+                <div class="icon-wrapper">🔍</div>
+                <h3>JD Detective</h3>
+                <p>Crack any job description code.</p>
+            </a>
+
+            <a href="{{ url_for('mnc_portal') }}" class="product-card card-mnc">
+                <div class="icon-wrapper">🏢</div>
+                <h3>MNC Nexus</h3>
+                <p>Apply to 100+ global giants.</p>
+            </a>
+
+            <a href="{{ url_for('mail_input_form') }}" class="product-card card-mail">
+                <div class="icon-wrapper">💬</div>
+                <h3>Email Sidekick</h3>
+                <p>Draft pro emails that get replies.</p>
+            </a>
+
+            <a href="{{ url_for('tracker_dashboard') }}" class="product-card card-tracker">
+                <div class="icon-wrapper">🎯</div>
+                <h3>Tracker Hub</h3>
+                <p>Organize your application quest.</p>
+            </a>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 2vh;">Job & Internship Search</h2>
+        <div class="product-grid">
+            <a href="{{ url_for('search_jobs') }}" class="product-card card-vacancies">
+                <div class="icon-wrapper">💼</div>
+                <h3>Find Vacancies</h3>
+                <p>Global search for full-time roles.</p>
+            </a>
+            <a href="{{ url_for('search_jobs') }}" class="product-card card-intern">
+                <div class="icon-wrapper">🎓</div>
+                <h3>Internships</h3>
+                <p>Kickstart your career journey.</p>
+            </a>
+            <a href="https://www.naukri.com" target="_blank" class="product-card card-naukri">
+                <div class="icon-wrapper">🇳</div>
+                <h3>Naukri Search</h3>
+                <p>Top Indian job portal vacancies.</p>
+            </a>
+            <a href="https://internship.aicte-india.org/" target="_blank" class="product-card card-aicte">
+                <div class="icon-wrapper">🏛️</div>
+                <h3>AICTE Portal</h3>
+                <p>Govt. verified student internships.</p>
+            </a>
+            <a href="https://in.indeed.com" target="_blank" class="product-card card-indeed">
+                <div class="icon-wrapper">ⓘ</div>
+                <h3>Indeed Post</h3>
+                <p>Global vacancies and company reviews.</p>
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WhatsApp Update Message Input</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container input-form-design">
+        <header>
+            <a href="{{ url_for('home_dashboard') }}" style="text-decoration: none; color: #1a73e8; font-weight: 500;">
+                ← Back to Dashboard
+            </a>
+            <h2>WhatsApp Update Message System 📱</h2>
+            <p>Generate a pre-filled link for quick, official updates. The message will be sent from **your** (the loginer's) WhatsApp account to the recipient's number.</p>
+        </header>
+
+        <form method="POST" action="/generate_whatsapp_link">
+            
+            <section class="form-section">
+                <h3>1. Select Message Type</h3>
+                <label for="status_type">Choose the type of update to send:</label>
+                <select id="status_type" name="status_type" required>
+                    <option value="interview_invite">Interview Invitation</option>
+                    <option value="application_received">Application Received Confirmation</option>
+                    <option value="final_offer">Final Job Offer</option>
+                </select>
+            </section>
+
+            <section class="form-section">
+                <h3>2. Recipient & Context Details</h3>
+                <div class="input-grid">
+                    <div class="grid-item">
+                        <label for="phone_number">Candidate's Mobile Number (Recipient) [Incl. Country Code]</label>
+                        <input type="text" id="phone_number" name="phone_number" placeholder="+919876543210" required>
+                        <p style="font-size: 0.85em; color: #cc5050; margin-top: 5px;">*This number is the recipient. You will be the sender.</p>
+                    </div>
+
+                    <div class="grid-item"><label for="candidate_name">Candidate Name</label><input type="text" id="candidate_name" name="candidate_name" placeholder="Priya Sharma" required></div>
+                    <div class="grid-item"><label for="company_name">Your Company Name</label><input type="text" id="company_name" name="company_name" placeholder="TechCorp Inc." required></div>
+                    <div class="grid-item"><label for="job_title">Job Title</label><input type="text" id="job_title" name="job_title" placeholder="Data Analyst" required></div>
+                </div>
+            </section>
+            
+            <button type="submit">Generate WhatsApp Link</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Architect | Professional Studio</title>
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; padding: 40px; display: flex; justify-content: center; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; width: 100%; max-width: 900px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .section-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; margin-bottom: 25px; border-left: 4px solid #38bdf8; }
+        
+        .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h3 { margin: 0; color: #38bdf8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        label { display: block; font-size: 0.75rem; color: #94a3b8; margin: 10px 0 5px; }
+        input, textarea { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white; box-sizing: border-box; }
+        input:focus { border-color: #38bdf8; outline: none; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        
+        .btn-add { background: #38bdf8; color: #0f172a; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.75rem; transition: 0.2s; }
+        .btn-add:hover { background: #7dd3fc; }
+        
+        .btn-del { background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; margin-top: 10px; }
+        .entry-row { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; margin-bottom: 15px; position: relative; border: 1px solid rgba(255,255,255,0.05); }
+        .btn-glow { width: 100%; padding: 20px; border: none; border-radius: 10px; background: linear-gradient(90deg, #0ea5e9, #2563eb); color: white; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; margin-top: 20px; }
+        .btn-glow:hover { box-shadow: 0 0 20px rgba(14, 165, 233, 0.6); transform: translateY(-2px); }
+        hr { opacity: 0.1; margin: 20px 0; border: 0; border-top: 1px solid #fff; }
+    </style>
+</head>
+<body>
+    <div class="glass-panel">
+        <h1 style="text-align: center; margin-bottom: 40px;">Resume <span style="color:#38bdf8">Studio</span></h1>
+        <form action="/generate" method="POST">
+            
+            <div class="section-card">
+                <h3>Personal Credentials</h3>
+                <div class="grid">
+                    <div><label>Full Name</label><input type="text" name="f_name" placeholder="John Doe" required></div>
+                    <div><label>Target Job Title</label><input type="text" name="f_title" placeholder="Lead Software Engineer"></div>
+                </div>
+                <div class="grid">
+                    <div><label>Email</label><input type="email" name="f_email"></div>
+                    <div><label>Phone</label><input type="text" name="f_phone"></div>
+                    <div><label>Location</label><input type="text" name="f_loc" placeholder="New York, US"></div>
+                </div>
+                <div class="grid">
+                    <div><label>LinkedIn</label><input type="text" name="f_li" placeholder="linkedin.com/in/username"></div>
+                    <div><label>GitHub</label><input type="text" name="f_gh" placeholder="github.com/username"></div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Executive Summary</h3>
+                <label>Professional Tagline</label>
+                <input type="text" name="f_tagline" placeholder="Driving innovation through scalable architecture...">
+                <label>Career Overview</label>
+                <textarea name="f_summary" rows="3" placeholder="Briefly describe your professional journey..."></textarea>
+            </div>
+
+            <div class="section-card">
+                <div class="header-flex">
+                    <h3>Professional Experience</h3>
+                    <button type="button" class="btn-add" onclick="addExperience()">+ Add Work</button>
+                </div>
+                <div id="experience-list">
+                    <div class="entry-row">
+                        <div class="grid">
+                            <input type="text" name="e_role[]" placeholder="Role">
+                            <input type="text" name="e_comp[]" placeholder="Company">
+                            <input type="text" name="e_date[]" placeholder="2020 - Present">
+                        </div>
+                        <textarea name="e_desc[]" rows="3" placeholder="Bullet points of impact..." style="margin-top:10px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="header-flex">
+                    <h3>Key Projects</h3>
+                    <button type="button" class="btn-add" onclick="addProject()">+ Add Project</button>
+                </div>
+                <div id="project-list">
+                    <div class="entry-row">
+                        <div class="grid">
+                            <input type="text" name="p_name[]" placeholder="Project Name">
+                            <input type="text" name="p_link[]" placeholder="Project Link (GitHub/Live)">
+                        </div>
+                        <textarea name="p_desc[]" rows="2" placeholder="Brief description of your role and tech used..." style="margin-top:10px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="header-flex">
+                    <h3>Education</h3>
+                    <button type="button" class="btn-add" onclick="addEducation()">+ Add Degree</button>
+                </div>
+                <div id="education-list">
+                    <div class="entry-row">
+                        <div class="grid">
+                            <input type="text" name="edu_deg[]" placeholder="Degree (e.g. B.Tech CS)">
+                            <input type="text" name="edu_univ[]" placeholder="University Name">
+                            <input type="text" name="edu_date[]" placeholder="Graduated 2019">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="header-flex">
+                    <h3>Certifications & Awards</h3>
+                    <button type="button" class="btn-add" onclick="addCert()">+ Add More</button>
+                </div>
+                <div id="cert-list">
+                    <div class="grid">
+                        <input type="text" name="cert_name[]" placeholder="AWS Certified / Hackathon Winner">
+                        <input type="text" name="cert_org[]" placeholder="Issuing Organization">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Competencies & Languages</h3>
+                <div class="grid">
+                    <div><label>Technical Skills</label><input type="text" name="s1_n" placeholder="Python, React, SQL"></div>
+                    <div><label>Soft Skills</label><input type="text" name="s2_n" placeholder="Leadership, Agile"></div>
+                    <div><label>Languages Known</label><input type="text" name="f_lang" placeholder="English, Hindi, German"></div>
+                </div>
+                <label>Skill Proficiency (General)</label>
+                <input type="range" name="skill_range" min="0" max="100">
+            </div>
+
+            <button type="submit" class="btn-glow">GENERATE ARCHITECTURAL RESUME 🚀</button>
+        </form>
+    </div>
+
+    <script>
+        function addExperience() {
+            const container = document.getElementById('experience-list');
+            const div = document.createElement('div');
+            div.className = 'entry-row';
+            div.innerHTML = `<div class="grid"><input type="text" name="e_role[]" placeholder="Role"><input type="text" name="e_comp[]" placeholder="Company"><input type="text" name="e_date[]" placeholder="Dates"></div><textarea name="e_desc[]" rows="3" placeholder="Bullet points..." style="margin-top:10px;"></textarea><button type="button" class="btn-del" onclick="this.parentElement.remove()">Remove</button>`;
+            container.appendChild(div);
+        }
+
+        function addProject() {
+            const container = document.getElementById('project-list');
+            const div = document.createElement('div');
+            div.className = 'entry-row';
+            div.innerHTML = `<div class="grid"><input type="text" name="p_name[]" placeholder="Project Name"><input type="text" name="p_link[]" placeholder="Project Link"></div><textarea name="p_desc[]" rows="2" placeholder="Description..." style="margin-top:10px;"></textarea><button type="button" class="btn-del" onclick="this.parentElement.remove()">Remove</button>`;
+            container.appendChild(div);
+        }
+
+        function addEducation() {
+            const container = document.getElementById('education-list');
+            const div = document.createElement('div');
+            div.className = 'entry-row';
+            div.innerHTML = `<div class="grid"><input type="text" name="edu_deg[]" placeholder="Degree"><input type="text" name="edu_univ[]" placeholder="University"><input type="text" name="edu_date[]" placeholder="Year"></div><button type="button" class="btn-del" onclick="this.parentElement.remove()">Remove</button>`;
+            container.appendChild(div);
+        }
+
+        function addCert() {
+            const container = document.getElementById('cert-list');
+            const div = document.createElement('div');
+            div.className = 'grid';
+            div.style.marginTop = "10px";
+            div.innerHTML = `<input type="text" name="cert_name[]" placeholder="Certification"><input type="text" name="cert_org[]" placeholder="Organization"><button type="button" class="btn-del" onclick="this.parentElement.remove()">X</button>`;
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>

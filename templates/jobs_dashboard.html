@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Job Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .job-card { transition: transform 0.2s; border: none; border-radius: 12px; }
+        .job-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .search-section { background: linear-gradient(135deg, #007bff, #6610f2); color: white; padding: 60px 0; border-radius: 0 0 30px 30px; }
+        .btn-apply { border-radius: 20px; font-weight: bold; }
+        .badge-location { background-color: #e9ecef; color: #495057; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Career Automation</a>
+    </div>
+</nav>
+
+<header class="search-section text-center">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Find Your Dream Job</h1>
+        <p class="lead">Search vacancies across LinkedIn, Naukri, and Indeed in one click.</p>
+        
+        <form action="/jobs" method="POST" class="row g-2 justify-content-center mt-4">
+            <div class="col-md-4">
+                <input type="text" name="query" class="form-control form-control-lg" placeholder="Job Title (e.g. Python Developer)" required>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="location" class="form-control form-control-lg" placeholder="Location (e.g. Ludhiana)">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold text-dark">Search Jobs</button>
+            </div>
+        </form>
+    </div>
+</header>
+
+<main class="container my-5">
+    {% if jobs %}
+        <div class="row">
+            {% for job in jobs %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 job-card shadow-sm p-3">
+                    <div class="card-body d-flex flex-column">
+                        <div class="mb-2">
+                            <span class="badge badge-location p-2">{{ job.location.display_name }}</span>
+                        </div>
+                        <h5 class="card-title fw-bold text-primary">{{ job.title }}</h5>
+                        <h6 class="card-subtitle mb-3 text-muted">{{ job.company.display_name }}</h6>
+                        
+                        <p class="card-text text-secondary small">
+                            {{ job.description[:180] }}...
+                        </p>
+                        
+                        <div class="mt-auto pt-3 border-top">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-success fw-bold">{{ job.salary_min if job.salary_min else 'Competitive' }}</span>
+                                <a href="{{ job.redirect_url }}" target="_blank" class="btn btn-primary btn-apply px-4">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="100" class="mb-3 opacity-50" alt="no jobs">
+            <h4 class="text-muted">No vacancies found. Try a different search!</h4>
+        </div>
+    {% endif %}
+</main>
+
+<footer class="text-center py-4 text-muted border-top">
+    <p>&copy; 2025 Career Automation System | Powered by Adzuna API</p>
+</footer>
+
+</body>
+</html>

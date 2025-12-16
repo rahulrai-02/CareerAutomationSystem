@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generated WhatsApp Link</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .whatsapp-output-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .whatsapp-output-card h3 {
+            border-bottom: 2px solid #25d366;
+            padding-bottom: 5px;
+            color: #25d366;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+        .message-content {
+            white-space: pre-wrap; 
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background-color: #f7f9fc;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .send-button {
+            background-color: #25d366;
+            font-size: 16px;
+        }
+        .send-button:hover {
+            background-color: #128c7e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container input-form-design">
+        <header>
+            <h2>WhatsApp Message Ready! 🟢</h2>
+            <p>Click the button below to open the message directly in WhatsApp (Web or Desktop app required).</p>
+        </header>
+
+        <p style="font-weight: 600; color: #cc5050; margin-bottom: 20px; padding: 15px; border: 1px dashed #f0ad4e; background-color: #fff9e6;">
+            IMPORTANT: Clicking 'Send Message' will open the chat on your device, and the message will be sent from **your** registered WhatsApp number to the recipient's number shown below.
+        </p>
+
+        <div class="whatsapp-output-card">
+            <h3>Recipient:</h3>
+            <p>{{ link_data.recipient }} ({{ link_data.phone }})</p>
+        </div>
+
+        <div class="whatsapp-output-card">
+            <h3>Pre-filled Message:</h3>
+            <pre class="message-content">{{ link_data.message }}</pre>
+        </div>
+        
+        <div class="actions">
+            <a href="{{ link_data.link }}" target="_blank">
+                <button class="send-button">Send Message via WhatsApp</button>
+            </a>
+            <a href="{{ url_for('whatsapp_input_form') }}"><button class="secondary action-button">Generate New Message</button></a>
+            <a href="{{ url_for('home_dashboard') }}"><button class="secondary action-button">Dashboard</button></a>
+        </div>
+    </div>
+</body>
+</html>

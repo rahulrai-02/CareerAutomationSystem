@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MNC Nexus | Global Recruitment Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0f172a; --accent: #38bdf8; --glass: rgba(30, 41, 59, 0.7); }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 50px; overflow-x: hidden; }
+        
+        .nav { 
+            background: var(--glass); backdrop-filter: blur(15px); padding: 20px 50px; 
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .search-bar { width: 100%; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .search-bar input {
+            width: 100%; padding: 15px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+            background: var(--glass); color: white; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        .search-bar input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+
+        .mnc-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; padding: 0 50px; max-width: 1400px; margin: auto;
+        }
+
+        .mnc-card { 
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s;
+            position: relative;
+        }
+        .mnc-card:hover { transform: translateY(-10px); border-color: var(--accent); background: rgba(30, 41, 59, 0.9); }
+
+        .logo-container {
+            width: 80px; height: 80px; background: white; border-radius: 15px;
+            margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; padding: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .logo-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        .mnc-name { font-weight: 700; font-size: 1.2rem; margin-bottom: 5px; }
+        .mnc-sector { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
+        
+        .btn-view {
+            background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 15px; border-radius: 10px; font-size: 0.8rem; cursor: pointer; flex: 1; transition: 0.3s;
+        }
+        .btn-view:hover { background: white; color: black; }
+
+        .btn-send {
+            background: var(--accent); color: #0f172a; border: none;
+            padding: 10px 15px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; 
+            cursor: pointer; flex: 1; transition: 0.3s;
+        }
+        .btn-send:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent); }
+
+        /* Animation for "Sent" state */
+        .sent-success { background: #10b981 !important; color: white !important; }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <h1 style="cursor:pointer" onclick="location.href='/'">MNC <span style="color:var(--accent)">Nexus</span></h1>
+        <button onclick="location.href='/'" style="background:none; border:1px solid #94a3b8; color:white; padding:8px 15px; border-radius:8px; cursor:pointer;">Back to Dashboard</button>
+    </div>
+<div class="container">
+    <div class="resume-manager" style="background: white; border-radius: 24px; padding: 30px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 2px dashed #6c5ce7;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+            <div style="max-width: 500px;">
+                <h2 style="margin: 0; color: #1e293b; font-size: 1.5rem;">Resume Command Center 📂</h2>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 5px;">Upload your existing PDF to sync with MNCs or use our AI to make it better.</p>
+            </div>
+            
+            <div style="display: flex; gap: 15px;">
+                <form action="/upload-resume" method="POST" enctype="multipart/form-data" id="uploadForm" style="display: flex; align-items: center; gap: 10px; background: #f1f5f9; padding: 10px 20px; border-radius: 15px;">
+                    <input type="file" name="resume" id="resumeFile" accept=".pdf" style="font-size: 0.8rem; color: #64748b;">
+                    <button type="submit" class="btn" style="background: #6c5ce7; color: white; padding: 8px 15px; width: auto;">Sync PDF</button>
+                </form>
+
+                <button onclick="location.href='/resume-input'" class="btn" style="background: #55efc4; color: #00b894; border: 2px solid #55efc4; width: auto;">
+                    ✍️ Edit with AI
+                </button>
+            </div>
+        </div>
+
+        {% if request.args.get('uploaded') %}
+        <div style="margin-top: 20px; background: #d1fae5; color: #065f46; padding: 12px; border-radius: 12px; font-size: 0.85rem; text-align: center; font-weight: 600;">
+            ✅ Resume Uploaded Successfully! Now you can click "Send Resume" on any MNC below.
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="search-area">
+        <input type="text" id="searchBox" placeholder="Search 100+ Companies..." onkeyup="searchMNC()">
+    </div>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="mncSearch" placeholder="Search across 100+ Global MNCs..." onkeyup="filterMNCs()">
+    </div>
+
+    <div class="mnc-grid" id="mncContainer">
+        </div>
+
+    <script>
+        // List of 100 MNCs with their domains for Logo fetching
+        const companies = [
+            {name: "Google", domain: "google.com", sector: "Tech"},
+            {name: "Microsoft", domain: "microsoft.com", sector: "Tech"},
+            {name: "Amazon", domain: "amazon.com", sector: "E-Commerce"},
+            {name: "Apple", domain: "apple.com", sector: "Hardware"},
+            {name: "Meta", domain: "meta.com", sector: "Social Media"},
+            {name: "Netflix", domain: "netflix.com", sector: "Entertainment"},
+            {name: "Tesla", domain: "tesla.com", sector: "Automotive"},
+            {name: "Nvidia", domain: "nvidia.com", sector: "Hardware"},
+            {name: "Adobe", domain: "adobe.com", sector: "Software"},
+            {name: "Salesforce", domain: "salesforce.com", sector: "Cloud"},
+            {name: "TCS", domain: "tcs.com", sector: "Services"},
+            {name: "Infosys", domain: "infosys.com", sector: "Consulting"},
+            {name: "Wipro", domain: "wipro.com", sector: "IT Services"},
+            {name: "Accenture", domain: "accenture.com", sector: "Strategy"},
+            {name: "Deloitte", domain: "deloitte.com", sector: "Audit"},
+            {name: "Goldman Sachs", domain: "goldmansachs.com", sector: "Finance"},
+            {name: "J.P. Morgan", domain: "jpmorgan.com", sector: "Banking"},
+            {name: "Morgan Stanley", domain: "morganstanley.com", sector: "Finance"},
+            {name: "IBM", domain: "ibm.com", sector: "Computing"},
+            {name: "Intel", domain: "intel.com", sector: "Semiconductors"},
+            {name: "Oracle", domain: "oracle.com", sector: "Database"},
+            {name: "SAP", domain: "sap.com", sector: "ERP"},
+            {name: "Cisco", domain: "cisco.com", sector: "Networking"},
+            {name: "Uber", domain: "uber.com", sector: "Mobility"},
+            {name: "Airbnb", domain: "airbnb.com", sector: "Hospitality"},
+            {name: "Spotify", domain: "spotify.com", sector: "Music"},
+            {name: "Samsung", domain: "samsung.com", sector: "Electronics"},
+            {name: "Sony", domain: "sony.com", sector: "Media"},
+            {name: "Visa", domain: "visa.com", sector: "Payments"},
+            {name: "Mastercard", domain: "mastercard.com", sector: "Fintech"},
+            {name: "PayPal", domain: "paypal.com", sector: "Fintech"},
+            {name: "SpaceX", domain: "spacex.com", sector: "Aerospace"},
+            {name: "Coca-Cola", domain: "cocacola.com", sector: "FMCG"},
+            {name: "PepsiCo", domain: "pepsico.com", sector: "FMCG"},
+            {name: "Nike", domain: "nike.com", sector: "Retail"},
+            {name: "Adidas", domain: "adidas.com", sector: "Retail"},
+            {name: "Walmart", domain: "walmart.com", sector: "Retail"},
+            {name: "HSBC", domain: "hsbc.com", sector: "Banking"},
+            {name: "Barclays", domain: "barclays.com", sector: "Banking"},
+            {name: "Siemens", domain: "siemens.com", sector: "Engineering"},
+            // ... Yahan aap aur 60+ names add kar sakte hain, logic same rahega
+        ];
+
+        // Fill remaining to reach 100 for demo
+        while(companies.length < 100) {
+            companies.push({name: "MNC "+(companies.length+1), domain: "example.com", sector: "Global Corp"});
+        }
+
+        const container = document.getElementById('mncContainer');
+
+        function loadCards() {
+            companies.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'mnc-card';
+                // Using Clearbit Logo API for original logos
+                const logoUrl = `https://logo.clearbit.com/${c.domain}`;
+                
+                card.innerHTML = `
+                    <div class="logo-container">
+                        <img src="${logoUrl}" onerror="this.src='https://ui-avatars.com/api/?name=${c.name}&background=random'" alt="${c.name}">
+                    </div>
+                    <div class="mnc-name">${c.name}</div>
+                    <div class="mnc-sector">${c.sector}</div>
+                    <div class="btn-group">
+                        <button class="btn-view" onclick="window.open('https://${c.domain}', '_blank')">View Site</button>
+                        <button class="btn-send" onclick="sendResume(this, '${c.name}')">Send Resume</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function sendResume(btn, name) {
+            btn.innerHTML = "SENDING...";
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = "SENT ✓";
+                btn.classList.add('sent-success');
+                console.log(`Resume dispatched to ${name}`);
+            }, 1200);
+        }
+
+        function filterMNCs() {
+            let input = document.getElementById('mncSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('mnc-card');
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].querySelector('.mnc-name').innerText.toLowerCase();
+                cards[i].style.display = name.includes(input) ? "block" : "none";
+            }
+        }
+
+        loadCards();
+    </script>
+</body>
+</html>

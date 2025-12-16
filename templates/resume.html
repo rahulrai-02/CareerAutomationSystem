@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Universe | 10 Designer Templates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&family=Montserrat:wght@800&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0f172a; --accent: #38bdf8; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 100px; }
+        
+        .header-nav { 
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); 
+            padding: 25px 50px; border-bottom: 2px solid #1e293b;
+            position: sticky; top: 0; z-index: 2000; text-align: center;
+        }
+
+        .template-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
+            gap: 50px; padding: 50px; max-width: 1600px; margin: auto;
+        }
+
+        .card { 
+            background: #1e293b; border-radius: 30px; padding: 25px; 
+            transition: 0.4s; border: 1px solid rgba(255,255,255,0.05);
+            display: flex; flex-direction: column; height: 850px;
+        }
+        .card:hover { transform: translateY(-15px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7); }
+
+        .preview { 
+            flex-grow: 1; border-radius: 15px; overflow-y: auto; 
+            background: white; color: #333; position: relative; scrollbar-width: none;
+        }
+
+        /* --- THEMES --- */
+        .classic-pro { border-top: 15px solid #1e3a8a; padding: 25px; }
+        .classic-pro h2 { color: #1e3a8a; }
+
+        .modern-ats { background: #f8fafc; padding: 25px; border-left: 10px solid #10b981; }
+        .modern-ats .sec-h { color: #047857; background: #d1fae5; padding: 5px; }
+
+        .simple-chrono { padding: 25px; background: linear-gradient(to bottom, #faf5ff, #ffffff); }
+        .simple-chrono h2 { color: #7e22ce; border-bottom: 2px solid #7e22ce; }
+
+        .std-corporate { display: grid; grid-template-columns: 140px 1fr; height: 100%; }
+        .std-corporate .sidebar { background: #0f172a; color: #38bdf8; padding: 20px; font-size: 0.6rem; }
+        .std-corporate .main { padding: 20px; background: white; }
+
+        .minimalist { padding: 40px; text-align: center; background: #fff1f2; }
+        .minimalist h2 { font-family: 'Playfair Display'; color: #be123c; }
+
+        .reverse-chrono { padding: 25px; border: 3px solid #f97316; border-radius: 10px; margin: 10px; }
+        .reverse-chrono .sec-h { background: #ffedd5; color: #ea580c; }
+
+        .basic-text { background: #000; color: #00ff00; font-family: 'Source Code Pro', monospace; padding: 20px; }
+        .basic-text .sec-h { color: #fff; border-bottom: 1px dashed #00ff00; }
+
+        .one-page { padding: 20px; background: #f0fdfa; border-right: 15px solid #0d9488; }
+
+        .executive { padding: 30px; background: #111; color: #fbbf24; border: 5px double #fbbf24; }
+        .executive p, .executive div { color: #fef3c7; }
+
+        .traditional { padding: 25px; border-top: 20px solid #475569; background: #f1f5f9; }
+
+        .sec-h { font-size: 0.7rem; font-weight: 800; margin: 15px 0 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-box { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .btn-mnc { 
+            background: var(--accent); color: #0f172a; border: none; padding: 12px 20px; 
+            border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .btn-mnc:hover { background: white; transform: scale(1.05); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-nav">
+        <h1 style="margin:0; font-family: 'Montserrat'; letter-spacing: -1px;">DESIGNER <span style="color:var(--accent)">PORTFOLIO</span></h1>
+        <p style="margin:5px 0 0; opacity: 0.6;">Select a template to finalize and send to global MNCs</p>
+    </div>
+
+    <div class="template-grid">
+        
+        {% set config = [
+            ('Classic Professional', 'classic-pro'),
+            ('Modern ATS', 'modern-ats'),
+            ('Simple Chronological', 'simple-chrono'),
+            ('Standard Corporate', 'std-corporate'),
+            ('Minimalist Design', 'minimalist'),
+            ('Reverse Chronological', 'reverse-chrono'),
+            ('Basic Text (Hacker)', 'basic-text'),
+            ('Professional One-Page', 'one-page'),
+            ('Executive Luxury', 'executive'),
+            ('Traditional Industry', 'traditional')
+        ] %}
+
+        {% for name, style in config %}
+        <div class="card">
+            <div class="preview">
+                <div class="{{ style }}">
+                    
+                    {% if style == 'std-corporate' %}
+                        <div class="sidebar">
+                            <h3 style="color:white">{{ d.personal.name[:1] }}</h3>
+                            <b>INFO</b><br>{{ d.personal.phone }}<br>{{ d.personal.location }}
+                            <br><br><b>SKILLS</b><br>
+                            {% for s in d.skills %}{{ s.name }}<br>{% endfor %}
+                        </div>
+                        <div class="main">
+                    {% endif %}
+
+                    <h2 style="margin:0; font-size: 1.3rem;">{{ d.personal.name }}</h2>
+                    <div style="font-weight: bold; font-size: 0.7rem; margin-top: 4px;">{{ d.personal.title }}</div>
+                    
+                    {% if style != 'std-corporate' %}
+                    <div style="font-size: 0.55rem; opacity: 0.7; margin-bottom: 15px;">
+                        {{ d.personal.email }} | {{ d.personal.phone }} | {{ d.personal.location }}
+                    </div>
+                    {% endif %}
+
+                    <div class="sec-h">Professional Summary</div>
+                    <p style="font-size: 0.6rem; line-height: 1.4;">{{ d.personal.summary }}</p>
+
+                    <div class="sec-h">Work Experience</div>
+                    {% for exp in d.experience %}
+                    <div style="margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.65rem;">
+                            <b>{{ exp.role }}</b>
+                            <span>{{ exp.date }}</span>
+                        </div>
+                        <div style="font-size: 0.6rem; font-style: italic;">{{ exp.comp }}</div>
+                        <p style="margin: 3px 0; font-size: 0.55rem;">{{ exp.desc }}</p>
+                    </div>
+                    {% endfor %}
+
+                    <div class="sec-h">Education</div>
+                    {% for edu in d.education %}
+                    <div style="font-size: 0.6rem;">
+                        <b>{{ edu.degree }}</b> — {{ edu.univ }} ({{ edu.date }})
+                    </div>
+                    {% endfor %}
+
+                    {% if style == 'std-corporate' %} </div> {% endif %}
+                </div>
+            </div>
+
+            <div class="footer-box">
+                <div>
+                    <div style="font-weight: bold; color: var(--accent);">{{ name }}</div>
+                    <div style="font-size: 0.7rem; opacity: 0.5;">Ready for MNC Dispatch</div>
+                </div>
+                <button class="btn-mnc" onclick="redirectToPortal('{{ name }}')">SEND TO MNC</button>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <script>
+        function redirectToPortal(templateName) {
+            const btn = event.currentTarget;
+            btn.innerHTML = "REDIRECTING...";
+            btn.style.background = "#ffffff";
+            btn.style.color = "#000";
+
+            setTimeout(() => {
+                alert("The " + templateName + " layout has been selected.\nRedircting you to the MNC Portal to apply!");
+                // Redirecting to the Flask route for MNC Portal
+                window.location.href = "{{ url_for('mnc_portal') }}";
+            }, 800);
+        }
+    </script>
+</body>
+</html>
