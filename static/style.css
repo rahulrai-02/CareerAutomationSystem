@@ -1,0 +1,391 @@
+/*
+ * PROFESSIONAL CSS Rework: Zoho Flow / Dashboard Style
+ * Focuses on rigid layout, clean margins, and distinct styling for modes.
+ */
+
+/* --- 1. GLOBAL & FONT SETUP --- */
+body {
+    font-family: 'Roboto', 'Open Sans', Arial, sans-serif;
+    background-color: #f4f6f9; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    color: #343a40;
+    line-height: 1.5;
+    font-size: 14px; /* Default readable size */
+}
+
+/* --- 2. INPUT FORM DESIGN (Dashboard Look) --- */
+
+.input-form-design {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 1000px;
+    width: 100%;
+    margin: 30px;
+}
+
+.input-form-design header {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.input-form-design header h2 {
+    color: #1a73e8;
+    font-size: 1.8em;
+    font-weight: 500;
+}
+
+/* Input Section Styling (Card Look) */
+.form-section {
+    border: 1px solid #ced4da;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.form-section h3 {
+    color: #343a40;
+    font-size: 1.2em;
+    border-left: 4px solid #1a73e8;
+    padding-left: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Grid Layout for Form Fields */
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1; /* Spans all columns */
+}
+
+/* Input Field Styling */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #495057;
+}
+
+input[type="text"], input[type="email"], textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 1px #1a73e8;
+    outline: none;
+}
+
+/* Buttons */
+button {
+    background-color: #1a73e8; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.secondary {
+    background-color: #6c757d;
+    margin-left: 10px;
+}
+.secondary:hover {
+    background-color: #5a6268;
+}
+
+/* --- 3. RESUME BASE LAYOUT (ADVANCED/BASIC MODE) --- */
+
+.resume-container {
+    background: #fff;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    max-width: 850px;
+    min-height: 1100px;
+    margin: 30px auto;
+    padding: 0;
+}
+
+/* Header spanning both columns */
+.resume-header {
+    background-color: #ffffff;
+    color: #343a40;
+    padding: 30px 40px 15px 40px; /* Reduced bottom padding */
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.resume-header h1 {
+    font-size: 2.5em;
+    margin: 0 0 5px 0;
+    font-weight: 600;
+}
+
+/* --- Rigid Two-Column Structure --- */
+.main-content-divider {
+    display: flex;
+    width: 100%;
+}
+
+/* Left Column (Sidebar) */
+.sidebar {
+    flex: 0 0 30%; 
+    background-color: #f7f9fc;
+    padding: 30px 20px;
+    border-right: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    word-wrap: break-word; /* Crucial for long URLs/emails */
+}
+
+.sidebar-section {
+    margin-bottom: 25px;
+}
+
+.sidebar-section h3 {
+    color: #343a40;
+    font-size: 1em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ced4da;
+    padding-bottom: 3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.sidebar-section p {
+    margin: 5px 0; /* Ensures proper spacing for contact items */
+}
+
+.clean-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0 0 0;
+}
+
+.clean-list li {
+    margin-bottom: 3px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.clean-list li::before {
+    content: "•";
+    color: #1a73e8;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* Right Column (Main Content) */
+.main-column {
+    flex: 1; 
+    padding: 30px 40px;
+}
+
+.main-section {
+    margin-bottom: 30px; /* Consistent bottom margin for sections */
+}
+
+.main-section h2 {
+    color: #1a73e8;
+    font-size: 1.5em;
+    font-weight: 600;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+/* Experience Entries */
+.job-entry {
+    margin-bottom: 20px;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.job-title-bold {
+    font-weight: 600;
+    color: #343a40;
+    margin-right: 5px;
+}
+
+.company {
+    font-weight: 400;
+    font-style: italic;
+    flex-grow: 1;
+    margin-right: 15px; /* Pushes content away from the date */
+}
+
+.duration {
+    font-weight: 500;
+    color: #6c757d;
+    font-size: 0.9em;
+    white-space: nowrap; /* Prevents date from wrapping */
+    text-align: right;
+}
+
+.job-bullets {
+    list-style: disc;
+    padding-left: 20px;
+    margin-top: 5px;
+    font-size: 0.95em;
+}
+
+/* --- 4. ATS / BASIC MODE STYLING (Single Column) --- */
+
+.mode-ats, .mode-basic {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 11pt;
+}
+
+.mode-ats .resume-container, .mode-basic .resume-container {
+    box-shadow: none;
+    padding: 30px 50px;
+}
+
+.mode-ats .main-content-divider, .mode-basic .main-content-divider {
+    display: block; 
+}
+
+/* Reset layout specific padding/colors for ATS */
+.mode-ats .sidebar, .mode-ats .main-column {
+    padding: 0;
+    border-right: none;
+    background-color: transparent;
+    width: 100%;
+}
+
+.mode-ats .ats-header {
+    text-align: left; /* ATS prefers left alignment */
+}
+
+.mode-ats .ats-header h1 {
+    font-size: 1.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.mode-ats .ats-header .contact-info {
+    font-size: 1em;
+    margin-top: 5px;
+    /* Contact info separated by vertical bars in HTML, keep it simple */
+}
+
+.mode-ats .ats-divider {
+    border: 0;
+    height: 1px;
+    background-color: #000;
+    margin: 10px 0;
+}
+
+.mode-ats .ats-section h2 {
+    color: #000 !important;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 2px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.mode-ats .job-header {
+    display: block; 
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.mode-ats .job-bullets {
+    list-style: disc !important;
+    padding-left: 20px;
+}
+
+
+/* --- 5. STYLE OVERRIDES (The 5 Themes for Advanced/Basic Modes) --- */
+
+/* Inherit base styles from above, only change colors/fonts/minor structure */
+
+/* 1. ROBOTO MODERN BLUE (Default - Clean Zoho-like) */
+.roboto_modern_blue { font-family: 'Roboto', sans-serif; }
+/* (Uses default blue colors set earlier) */
+
+
+/* 2. OPEN SANS CLASSIC GRAY */
+.open_sans_classic_gray { font-family: 'Open Sans', sans-serif; }
+.open_sans_classic_gray .sidebar { background-color: #e9ecef; }
+.open_sans_classic_gray .sidebar-section h3,
+.open_sans_classic_gray .main-section h2 { color: #495057; border-bottom-color: #495057; }
+.open_sans_classic_gray .clean-list li::before { content: "▪"; color: #495057; }
+
+
+/* 3. MERRIWEATHER FORMAL FULL (Single Column) */
+.merriweather_formal_full { font-family: 'Merriweather', Georgia, serif; }
+.merriweather_formal_full .main-content-divider { display: block; } 
+.merriweather_formal_full .sidebar, .merriweather_formal_full .main-column {
+    padding: 20px 50px;
+    width: 100%;
+    background-color: transparent;
+}
+.merriweather_formal_full .resume-header { border-bottom: 4px double #ced4da; }
+.merriweather_formal_full .sidebar-section h3,
+.merriweather_formal_full .main-section h2 { color: #343a40; border-bottom: 2px solid #ced4da; }
+
+
+/* 4. MONTSERRAT BOLD TWO TONE */
+.montserrat_bold_two_tone { font-family: 'Montserrat', sans-serif; }
+.montserrat_bold_two_tone .resume-header {
+    background-color: #343a40;
+    color: white;
+    border-bottom: 5px solid #ffc107;
+}
+.montserrat_bold_two_tone .sidebar {
+    background-color: #fff3cd; 
+    border-right: 3px solid #ffc107;
+}
+.montserrat_bold_two_tone .main-section h2 {
+    color: #343a40;
+    border-bottom-color: #ffc107;
+}
+.montserrat_bold_two_tone .clean-list li::before { content: "►"; color: #ffc107; }
+
+
+/* 5. GARAMOND TRADITIONAL FULL (Single Column) */
+.garamond_traditional_full { font-family: 'Garamond', Georgia, serif; font-size: 11pt; }
+.garamond_traditional_full .main-content-divider { display: block; }
+.garamond_traditional_full .sidebar, .garamond_traditional_full .main-column {
+    padding: 10px 50px;
+    width: 100%;
+    background-color: transparent;
+}
+.garamond_traditional_full .resume-header { border-bottom: 2px solid #000; }
+.garamond_traditional_full .main-section h2 {
+    color: #000;
+    border-bottom: 1px solid #000;
+    font-variant: small-caps;
+}
+.garamond_traditional_full .job-bullets { list-style: circle; }
